@@ -1,0 +1,14 @@
+version: "3.7"
+ 
+services:
+  api-node:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: back-api-node
+    volumes:
+      - ./src:/app/src
+    ports:
+      - "8080:8080"
+      - "8181:8181"
+    command: npm run start
