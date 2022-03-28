@@ -5,10 +5,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    container_name: back-api-node
+    container_name: back
     volumes:
       - ./src:/app/src
     ports:
       - "8080:8080"
-      - "8181:8181"
-    command: npm run start
+    command: npm run dev
