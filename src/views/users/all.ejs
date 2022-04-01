@@ -1,0 +1,39 @@
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> 
+    <section class="home-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-12 col-sm-12" style="display: flex; justify-content: space-around; align-items: end;">
+                    <div class="todo-content">
+                        <h4 class="todo-heading">My todos.</h4>
+                            <% all.forEach(function(user) { %>
+                                <strong>Usuario:  </strong><span><%= user.username %></span>
+                                <strong>Email:   </strong><span><%= user.email %></span>
+                                <a href="<%= `/api/v1/user_id?id=${user.user_id}` %>"> editar</a>
+                                <button onclick="deleteUser('<%= user.user_id %>')" class="btn btn-primary">deletar usuario Usuario</button>
+                            </br>
+                            <% }); %>
+
+                    </div>
+                    <%- include('../users/addUser') %>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        function deleteUser(userIdParam) {
+
+            const userId = userIdParam
+            $.ajax({
+                url:'/api/v1/users/user_id',
+                method:'delete',
+                data: { id: userId },
+                success: () => {
+                    window.location.href = "/api/v1/users";
+                }
+            })
+        }
+        function validaEmail(email) {
+            var re = /\S+@\S+\.\S+/;
+            return re.test(email);
+        }
+    </script>

@@ -1,0 +1,58 @@
+
+<div class="row">
+    <div class="col-12 col-md-12 col-sm-12">
+        <div class="add-user-form" id="formAddUser">
+            <div class="form-group form-title" style="display: flex; flex-direction: column;">
+                <label for="userName"> usuario </label>
+                <input id="userName" type="text" class="form-control" name="username" placeholder="Nome do usuario" />
+                <label for="userEmail"> Email </label>
+                <input id="userEmail" type="email" class="form-control" name="email" placeholder="email do usuario" />
+                <label for="userPass"> senha </label>
+                <input id="userPass" type="password" class="form-control" name="password" placeholder="senha do usuario" />
+            </div>
+            <div style="margin-top: 5px;" class="form-group form-submit">
+                <button onclick="setUser()" class="btn btn-primary">Adicionar Usuario</button>
+            </div>
+        </div> 
+    </div>
+</div>
+<script>
+    function setUser() {
+        let payload = [{
+            userName: document.getElementById('userName').value,
+            userEmail: document.getElementById('userEmail').value,
+            userPass: document.getElementById('userPass').value
+        }]
+        let saveIstrue = false
+        payload.map((x) => {
+            if(x.userName == '') {
+                return alert('username  vazio')
+            }else if (x.userEmail == '') {
+                return alert('email vazio')
+            } else if (!validaEmail(x.userEmail)){
+                return alert(`Formato do email invalido!  ${x.userEmail}`)
+            }
+            else if(x.userPass == '') {
+                return alert('Senha vazio')
+            }
+            saveIstrue = true
+        })
+        if(saveIstrue){
+            event.preventDefault();
+            $.ajax({
+                url:'/api/v1/users',
+                type:'post',
+                data: { params: payload },
+                success: () => {
+                    window.location.href = "/api/v1/users";
+                }
+            })
+
+        }
+
+    }
+    function validaEmail(email) {
+        var re = /\S+@\S+\.\S+/;
+        return re.test(email);
+    }
+</script>

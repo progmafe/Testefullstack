@@ -1,0 +1,45 @@
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> 
+    <section class="home-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-12 col-sm-12">
+                    <div class="todo-content">
+                        <h4 class="todo-heading">Usuario.</h4>
+                            <div class="form-group form-title" style="display: flex; flex-direction: column;">
+                                <input type="hidden" id="userId" value="<%= user[0].user_id %>">
+                                <label for="userName"> usuario </label>
+                                <input id="userName" type="text" class="form-control" name="username" placeholder="Nome do usuario" value="<%= user[0].username %>" />
+                                <label for="userEmail"> Email </label>
+                                <input id="userEmail" type="email" class="form-control" name="email" placeholder="email do usuario" value="<%= user[0].email %>"  />
+                                <label for="userPass"> senha </label>
+                                <input id="userPass" type="text" class="form-control" name="password" placeholder="senha do usuario" value="<%= user[0].password %>"  />
+                            </div>
+                            <button class="" onclick="updateUser()">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        function updateUser() {
+            let payload = [{
+                userName: document.getElementById('userName').value,
+                userEmail: document.getElementById('userEmail').value,
+                userPass: document.getElementById('userPass').value,
+                userId: document.getElementById('userId').value,
+            }]
+            $.ajax({
+                url:'/api/v1/users/user_id',
+                type:'put',
+                data: { params: payload },
+                success: () => {
+                    window.location.href = "/api/v1/users";
+                }
+            })
+    
+        }
+        function validaEmail(email) {
+            var re = /\S+@\S+\.\S+/;
+            return re.test(email);
+        }
+    </script>
