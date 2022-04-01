@@ -4,12 +4,12 @@
             <div class="row">
                 <div class="col-12 col-md-12 col-sm-12" style="display: flex; justify-content: space-around; align-items: end;">
                     <div class="todo-content">
-                        <h4 class="todo-heading">My todos.</h4>
+                        <h4 class="todo-heading">Usuários</h4>
                             <% all.forEach(function(user) { %>
                                 <strong>Usuario:  </strong><span><%= user.username %></span>
                                 <strong>Email:   </strong><span><%= user.email %></span>
                                 <a href="<%= `/api/v1/user_id?id=${user.user_id}` %>"> editar</a>
-                                <button onclick="deleteUser('<%= user.user_id %>')" class="btn btn-primary">deletar usuario Usuario</button>
+                                <button onclick="deleteUser('<%= user.user_id %>')" class="btn btn-primary">Deletar usuario</button>
                             </br>
                             <% }); %>
 
